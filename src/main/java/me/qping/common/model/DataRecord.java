@@ -1,9 +1,6 @@
 package me.qping.common.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @ClassName DataRecord
@@ -28,12 +25,17 @@ public class DataRecord {
         this.size = row.length;
     }
 
+    public boolean containKey(String name){
+        return nameMap.containsKey(name);
+    }
+
     public Object get(int index){
         return data[index];
     }
 
     public Object get(String name) throws RuntimeException {
         if(!nameMap.containsKey(name)){
+//            return null;
             throw new RuntimeException("数据集不存在指定的列名");
         }
         return data[nameMap.get(name)];
@@ -50,14 +52,19 @@ public class DataRecord {
         return obj == null ? null : (Integer) obj;
     }
 
-    public String getString(String name) throws RuntimeException {
+    public String getString(String name){
         Object obj = get(name);
         return obj == null ? null : (String) obj;
     }
 
-    public Integer getInt(String name) throws RuntimeException {
+    public Integer getInt(String name) {
         Object obj = get(name);
         return obj == null ? null : (Integer) obj;
+    }
+
+    public Date getDate(String name){
+        Object obj = get(name);
+        return obj == null ? null : (Date) obj;
     }
 
     public void put(String key, Object value){
