@@ -35,8 +35,10 @@ public class DataRecord {
 
     public Object get(String name) throws RuntimeException {
         if(!nameMap.containsKey(name)){
-//            return null;
-            throw new RuntimeException("数据集不存在指定的列名");
+            return null;
+            // fix：当获取目标表结构以后，来源的表是视图或者sql，导致可能来源的数据集中不包括全部的字段，
+            // 此时调用get(name) 方法会报错，此时不需要处理这个问题，只需要返回null即可
+//            throw new RuntimeException("数据集不存在指定的列名");
         }
         return data[nameMap.get(name)];
     }
