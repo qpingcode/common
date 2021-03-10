@@ -108,6 +108,13 @@ public class DataRecord {
         return newObj;
     }
 
+    public String toString(){
+        return "Record{"+
+                "data=" + Arrays.toString(data) +
+                ", namemap=" + nameMap +
+            "}";
+    }
+
     public static void main(String[] args) {
         DataRecord d = new DataRecord();
         d.put("1", 111);
