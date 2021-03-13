@@ -81,20 +81,20 @@ public class Page {
     }
 
     // 通过一些参数计算出来的东西
-    public int getTotalPage() throws Exception {
+    public int getTotalPage() {
         if(totalCount == -1){
-            throw new Exception("请先查询总记录数！");
+            throw new RuntimeException("请先查询总记录数！");
         }
 
         return (totalCount - 1)/pageSize + 1;
     }
 
-    public int getNextPage() throws Exception{
+    public int getNextPage(){
         int totalPage = getTotalPage();
         return (totalPage - pageNo > 1) ? pageNo + 1 : totalPage;
     }
 
-    public int getPrePage() throws Exception{
+    public int getPrePage(){
         int totalPage = getTotalPage();
         return pageNo > 1 ? (pageNo -1 ) : 1;
     }
