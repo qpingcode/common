@@ -107,15 +107,21 @@ public class Page {
         return (pageNo - 1) * pageSize;
     }
 
+    public int getStart() {
+        return getOffset();
+    }
+
+    public int getEnd() {
+        return getOffset() + getLimit();
+    }
+
     public Map<String,Object> toMap(){
-        int start = getOffset();
-        int end = getOffset() + getLimit();
 
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("pageSize", getLimit());
         map.put("order", order);
-        map.put("start", start);
-        map.put("end", end);
+        map.put("start", getStart());
+        map.put("end", getEnd());
 
         return map;
     }
