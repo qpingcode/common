@@ -31,6 +31,10 @@ public class Statis {
     }
 
 
+    public Statis reset(){
+        count = 0;
+        return this;
+    }
 
     public Statis increase(){
         count ++;
