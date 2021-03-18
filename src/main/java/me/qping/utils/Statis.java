@@ -1,6 +1,7 @@
 package me.qping.utils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -15,7 +16,7 @@ public class Statis {
     int count;
     String key;
 
-    static Map<String, Statis> map = new HashMap<>();
+    static Map<String, Statis> map = new LinkedHashMap<>();
 
     public static Statis get(String key){
         if(key == null) return null;
