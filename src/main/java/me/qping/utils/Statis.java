@@ -1,8 +1,6 @@
 package me.qping.utils;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ClassName Statis
@@ -15,6 +13,7 @@ public class Statis {
 
     int count;
     String key;
+    List<Object> dataList;
 
     static Map<String, Statis> map = new LinkedHashMap<>();
 
@@ -23,8 +22,7 @@ public class Statis {
         if(map.get(key) == null){
             Statis statis = new Statis();
             statis.key = key;
-            statis.count = 0;
-
+            statis.reset();
             map.put(key, statis);
             return statis;
         }
@@ -34,6 +32,10 @@ public class Statis {
 
     public Statis reset(){
         count = 0;
+        if(dataList != null){
+            dataList.clear();
+        }
+        dataList = new ArrayList<>();
         return this;
     }
 
@@ -59,6 +61,24 @@ public class Statis {
         return this;
     }
 
+    public Statis addData(Object data){
+        dataList.add(data);
+        count ++;
+        return this;
+    }
+
+    public List getDataList(){
+        return dataList;
+    }
+
+    public int getCount(){
+        return count;
+    }
+
+    public String getKey(){
+        return key;
+    }
+
     @Override
     public String toString() {
         return "Statis{" +
@@ -71,5 +91,9 @@ public class Statis {
         for(Statis statis : map.values()){
             System.out.println(statis);
         }
+    }
+
+    public static Collection<Statis> getAll(){
+        return map.values();
     }
 }
