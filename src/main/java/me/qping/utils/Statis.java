@@ -14,6 +14,7 @@ public class Statis {
     int count;
     String key;
     List<Object> dataList;
+    int dataMaxSize = -1;
 
     static Map<String, Statis> map = new LinkedHashMap<>();
 
@@ -29,6 +30,10 @@ public class Statis {
         return map.get(key);
     }
 
+    public static void resetAll(){
+       map.clear();
+    }
+
 
     public Statis reset(){
         count = 0;
@@ -36,6 +41,11 @@ public class Statis {
             dataList.clear();
         }
         dataList = new ArrayList<>();
+        return this;
+    }
+
+    public Statis setDataMaxSize(int i ){
+        this.dataMaxSize = i;
         return this;
     }
 
@@ -62,8 +72,13 @@ public class Statis {
     }
 
     public Statis addData(Object data){
-        dataList.add(data);
         count ++;
+
+        if(dataMaxSize > -1 && dataList.size() > (dataMaxSize - 1)){
+            return this;
+        }
+
+        dataList.add(data);
         return this;
     }
 
