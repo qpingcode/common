@@ -1,4 +1,4 @@
-package me.qping.utils;
+package me.qping.utils.single;
 
 import java.util.*;
 
@@ -15,6 +15,13 @@ public class Statis {
     String key;
     List<Object> dataList;
     int dataMaxSize = -1;
+
+
+    int printAfterTimes = -1;
+    public Statis printAfter(int perTimes){
+        printAfterTimes = perTimes;
+        return this;
+    }
 
     static Map<String, Statis> map = new LinkedHashMap<>();
 
@@ -51,7 +58,16 @@ public class Statis {
 
     public Statis increase(){
         count ++;
+        printLineInConsole();
         return this;
+    }
+
+    private void printLineInConsole(){
+        if(printAfterTimes > -1){
+            if(count % printAfterTimes == 0){
+                System.out.println(key + " : " + count);
+            }
+        }
     }
 
 
@@ -62,6 +78,7 @@ public class Statis {
 
     public Statis increase(int i){
         count = count + i;
+        printLineInConsole();
         return this;
     }
 
@@ -73,7 +90,7 @@ public class Statis {
 
     public Statis addData(Object data){
         count ++;
-
+        printLineInConsole();
         if(dataMaxSize > -1 && dataList.size() > (dataMaxSize - 1)){
             return this;
         }
