@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
  **/
 public class NetUtils {
 
-    public boolean testPort(String host, int port) throws Exception {
+    public static boolean testPort(String host, int port) throws Exception {
         if (port < 0 || port > 65535) {
             throw new Exception("端口范围错误,必须在 [ 0 - 65535 ] 之间");
         }
@@ -27,20 +27,15 @@ public class NetUtils {
         } catch (SocketTimeoutException e) {
             throw new Exception("连接超时: " + e.getMessage());
         } catch (java.net.ConnectException e) {
-            e.printStackTrace();
             throw new Exception("连接失败，端口不通: " + e.getMessage());
         } catch (java.lang.IllegalArgumentException e) {
-            e.printStackTrace();
             throw new Exception("端口或者主机名错误: " + e.getMessage());
         } catch (Exception ex) {
-            ex.printStackTrace();
             throw new Exception(ex.getMessage());
         } finally {
             try {
                 socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            } catch (IOException e) {}
         }
         return true;
     }

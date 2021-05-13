@@ -54,6 +54,13 @@ public class FileUtil {
         write(word + "\n", true);
     }
 
+    /**
+     * 快速输出
+     * */
+    public void flush() throws IOException {
+        out.flush();
+    }
+
 
     public void close(){
         if(out != null){
