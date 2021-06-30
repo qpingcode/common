@@ -92,8 +92,8 @@ public class DataRecord {
         Set<String> keyset = nameMap.keySet();
         Map<String, Object> map = new HashMap<>();
         for(String key : keyset){
-            if(ignoreAlias && key.indexOf("\\.") > -1){
-                String keySub = key.substring(key.indexOf("\\."), key.length());
+            if(ignoreAlias && key.indexOf(".") > -1){
+                String keySub = key.substring(key.indexOf(".") + 1, key.length());
                 map.put(keySub, data[nameMap.get(key)]);
             }else{
                 map.put(key, data[nameMap.get(key)]);
