@@ -14,6 +14,7 @@ public class DataRecord {
     int size = 0;
     Object[] data;
     Map<String, Integer> nameMap = new HashMap<>();
+    boolean ignoreAlias = false;
 
     public DataRecord(){
         Object[] data = new Object[ALLOCATION_SIZE];
@@ -38,6 +39,7 @@ public class DataRecord {
             return null;
             // fix：当获取目标表结构以后，来源的表是视图或者sql，导致可能来源的数据集中不包括全部的字段，
             // 此时调用get(name) 方法会报错，此时不需要处理这个问题，只需要返回null即可
+            
 //            throw new RuntimeException("数据集不存在指定的列名");
         }
         return data[nameMap.get(name)];
@@ -90,7 +92,12 @@ public class DataRecord {
         Set<String> keyset = nameMap.keySet();
         Map<String, Object> map = new HashMap<>();
         for(String key : keyset){
-            map.put(key, data[nameMap.get(key)]);
+            if(ignoreAlias && key.indexOf("\\.") > -1){
+                String keySub = key.substring(key.indexOf("\\."), key.length());
+                map.put(keySub, data[nameMap.get(key)]);
+            }else{
+                map.put(key, data[nameMap.get(key)]);
+            }
         }
         return map;
     }
@@ -113,6 +120,11 @@ public class DataRecord {
                 "data=" + Arrays.toString(data) +
                 ", namemap=" + nameMap +
             "}";
+    }
+
+    public DataRecord ignoreAlias(){
+        this.ignoreAlias = true;
+        return this;
     }
 
     public static void main(String[] args) {
