@@ -14,7 +14,6 @@ public class DataRecord {
     int size = 0;
     Object[] data;
     Map<String, Integer> nameMap = new HashMap<>();
-    boolean ignoreAlias = false;
 
     public DataRecord(){
         Object[] data = new Object[ALLOCATION_SIZE];
@@ -92,12 +91,7 @@ public class DataRecord {
         Set<String> keyset = nameMap.keySet();
         Map<String, Object> map = new HashMap<>();
         for(String key : keyset){
-            if(ignoreAlias && key.indexOf(".") > -1){
-                String keySub = key.substring(key.indexOf(".") + 1, key.length());
-                map.put(keySub, data[nameMap.get(key)]);
-            }else{
-                map.put(key, data[nameMap.get(key)]);
-            }
+            map.put(key, data[nameMap.get(key)]);
         }
         return map;
     }
@@ -120,11 +114,6 @@ public class DataRecord {
                 "data=" + Arrays.toString(data) +
                 ", namemap=" + nameMap +
             "}";
-    }
-
-    public DataRecord ignoreAlias(){
-        this.ignoreAlias = true;
-        return this;
     }
 
     public static void main(String[] args) {
