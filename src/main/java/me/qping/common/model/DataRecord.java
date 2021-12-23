@@ -29,6 +29,10 @@ public class DataRecord {
         return nameMap.containsKey(name);
     }
 
+    public int size(){
+        return size;
+    }
+
     public Object get(int index){
         return data[index];
     }
