@@ -87,6 +87,13 @@ public class DataRecord {
         }
     }
 
+    public void put(int index, Object value){
+        if(index < 0 || index >= size){
+            throw new RuntimeException("index out of range : " + index);
+        }
+        data[index] = value;
+    }
+
     public Object[] toArray(){
         return Arrays.copyOf(data, size);
     }
