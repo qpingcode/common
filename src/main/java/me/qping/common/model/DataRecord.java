@@ -1,5 +1,6 @@
 package me.qping.common.model;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -98,6 +99,17 @@ public class DataRecord {
         return Arrays.copyOf(data, size);
     }
 
+    public Object[] toArray(Object... befores) {
+        int newLength = size + befores.length;
+        Object[] objects = new Object[newLength];
+        for (int i = 0; i < befores.length; i++) {
+            objects[i] = befores[i];
+        }
+        System.arraycopy(data, 0 , objects, 0 + befores.length,
+                size);
+        return objects;
+    }
+
     public Map<String, Object> toMap(){
         Set<String> keyset = nameMap.keySet();
         Map<String, Object> map = new HashMap<>();
@@ -134,16 +146,30 @@ public class DataRecord {
         d.put("3", 333);
         d.put("4", 444);
         d.put("1", 1111);
+        d.put("ok", 123123);
 
-        for(int i = 10 ; i< 99; i++){
-            d.put(i+"",i);
-        }
+//        for(int i = 10 ; i< 99; i++){
+//            d.put(i+"",i);
+//        }
 
-        System.out.println(d.getInt("1"));
-        System.out.println(d.get("2"));
-        System.out.println(d.toMap());
+//        System.out.println(d.getInt("1"));
+//        System.out.println(d.get("2"));
+//        System.out.println(d.toMap());
+//        System.out.println(Arrays.toString(d.toArray()));
+
         System.out.println(Arrays.toString(d.toArray()));
+        System.out.println(Arrays.toString(d.toArray("test", 1, new Test())));
 
 
+
+    }
+
+    public static class Test{
+        String name ="ok";
+        int age = 12;
+        public String toString(){
+            return "name " + name + " age " + age;
+
+        }
     }
 }
